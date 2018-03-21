@@ -115,20 +115,37 @@
 
 *---------------------------  core part  -----------------------------
 *---------------------------燃料组件(81 盒)----264.42-----------------
+*>> 不同组件仅CCC0101控制体流动面积不同
 
 2000000 core pipe
+*>> nv.
 2000001 25
+*>> X-Coordinate Volume Flow Areas
+*>> area number
 2000101 0.100895 25
+*>> length number. (1-5,6-21,22-25)
 2000301 0.20  5
 2000302 0.05 21
 2000303 0.20 25
+*>> volume, number
 2000401 0.0  25
+*>> Azimuthal Angles, number
 2000501 0.0  25
+*>> Inclination Angles, number
 2000601 90.0 25
+*>> CCC0701 optional. X-Coordinate Position or elevation changes
+*>> X-Coordinate Friction Data
+*>> wall roughness, Hydraulic diameter, number
 2000801 1.0e-5 0.003702 25
+*>> Junction Loss Coefficients
+*>> forward reverse number
 2000901 0.0 0.0 24
+*>> Volume X-Coordinate Control Flags
 2001001 0000 25
+*>> Junction Control Flags
 2001101 001000 24
+*>> Volume Initial Conditions
+*>> ctl.word press. temp. 0 0 0 number
 2001201 3 156227.5  633.0 0.0 0.0 0.0 01
 2001202 3 154561.5  633.0 0.0 0.0 0.0 02
 2001203 3 152895.5  633.0 0.0 0.0 0.0 03
@@ -154,7 +171,10 @@
 2001223 3 139567.5  633.0 0.0 0.0 0.0 23
 2001224 3 137901.5  633.0 0.0 0.0 0.0 24
 2001225 3 136235.5  633.0 0.0 0.0 0.0 25
-2001300 1 
+*>> Junction Conditions Control Words
+2001300 1
+*>> Junction Initial Conditions
+*>> liquid mass flow rate, initial vapor/gas mass flow rate, 0, number
 2001301 0.0 0.0 0.0 24
 
 *------------------------控制棒组件(8 盒)------3---------------------
@@ -371,6 +391,9 @@
 2501225 3 136235.5  633.0 0.0 0.0 0.0 25
 2501300 1 
 2501301 0.0 0.0 0.0 24
+
+*--------------------------- core outlet -----------------------------
+*>> 与进口相比n.jun area length不同，控制体初始压力、温度不同，
 
 2600000 C_out branch     
 * n.jun flag              
