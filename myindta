@@ -1,6 +1,4 @@
-*v0.1
-*>> title card
-= hx model
+= hx model      v0.1 CEFR-1D
 *>> developmental model control. set logical variables
 1 11,8  
 *>> problem type
@@ -467,13 +465,14 @@
 3100601 90.0 7
 *>> FIXME: friction factor - roughness
 3100801 1.0e-5 2.8 7
-*>> concentrated loss coeff.
-3100901 0.0 0.0 7
-*3100902 50.0 50.0 7
+*>> Junction loss efficiency    Junction数量比volume少1
+* concentrated loss coeff.
+3100901 0.0 0.0 6
+*3100902 50.0 50.0 6
 *>> FIXME: volume flags. flag tlpvbfe f==0 or f==1?
 3101001 00000 7
 *>> junction flags. flag jefvcahs
-3101101 001000 7
+3101101 001000 6
 *>> Volume Initial Conditions
 3101201 3 129155.0 789.15 0.0 0.0 0.0 1
 3101202 3 124990.0 789.15 0.0 0.0 0.0 2
@@ -484,7 +483,7 @@
 3101207 3 104165.0 789.15 0.0 0.0 0.0 7
 3101300 0
 *>> Junction Initial Conditions
-3101301 0.0 0.0 0. 7
+3101301 0.0 0.0 0. 6
 
 *----------------- inner hot pool VS core out branch -------------------
 *>> 连接内热池与堆芯出口的mtpljun
@@ -659,7 +658,7 @@
 *>> area length volume azimuthal inclination elevation roughness hydraulic_diameter flag
 3120101  6.1575216  0.5  0.0  0  90.0 0.5 0.000001  0.0   0
 *>> Initial Condition
-ctl.word press. temp. static_quality
+*>> ctl.word press. temp. static_quality
 3120200  4   100000.0   789.15   0.005    *5.117e-5
 
 ***>> 改为一维
