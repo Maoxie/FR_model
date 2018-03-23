@@ -1,9 +1,11 @@
 =CEFR simulation strip card
-*
-100 strip fmtout.
+
+100 strip fmtout
+
 *>> Restart Input File Control
 *>> no.
 103 0
+
 *>>     code        param.
 1001    rktpow      0           *Total reactor power
 
@@ -23,24 +25,6 @@
 1046    tempf       403010000   *IHX#4 inlet temperature
 1047    tempf       403180000   *IHX#4 outlet temperature
 
-
-* inner hot pool temperature
-*<----block---- inhpool : 1D
-1050    tempf       310010000
-1051    tempf       310020000
-1052    tempf       310030000
-1053    tempf       310040000
-1054    tempf       310050000
-1055    tempf       310060000
-1056    tempf       310070000
-*----end-of-block---->
-*<----block---- inhpool : 3D
-*
-* TODO: 三维热池的strip card
-*
-*----end-of-block---->
-
-
 1110    pmpvel      710         *Rotational velocity in the pump#1
 1111    pmpvel      711         *Rotational velocity in the pump#2
 
@@ -52,5 +36,117 @@
 1123    mflowfj     180040000   *flow to component 230
 1124    mflowfj     180050000   *flow to component 240
 1125    mflowfj     180080000   *flow to component 250
+
+
+* inner hot pool temperature
+*<----block---- inhpool : 1D
+1200    tempf       310010000
+1201    tempf       310020000
+1202    tempf       310030000
+1203    tempf       310040000
+1204    tempf       310050000
+1205    tempf       310060000
+1206    tempf       310070000
+*----end-of-block---->
+*<----block---- inhpool : 3D
+**1200    tempf       310101010
+**1201    tempf       310101020
+**1202    tempf       310101030
+**1203    tempf       310101040
+**1204    tempf       310101050
+**1205    tempf       310101060
+**1206    tempf       310101070
+**1207    tempf       310105010
+**1208    tempf       310105020
+**1209    tempf       310105030
+**1210    tempf       310105040
+**1211    tempf       310105050
+**1212    tempf       310105060
+**1213    tempf       310105070
+**1214    tempf       310201010
+**1215    tempf       310201020
+**1216    tempf       310201030
+**1217    tempf       310201040
+**1218    tempf       310201050
+**1219    tempf       310201060
+**1220    tempf       310201070
+**1221    tempf       310205010
+**1222    tempf       310205020
+**1223    tempf       310205030
+**1224    tempf       310205040
+**1225    tempf       310205050
+**1226    tempf       310205060
+**1227    tempf       310205070
+**1228    tempf       310301010
+**1229    tempf       310301020
+**1230    tempf       310301030
+**1231    tempf       310301040
+**1232    tempf       310301050
+**1233    tempf       310301060
+**1234    tempf       310301070
+**1235    tempf       310305010
+**1236    tempf       310305020
+**1237    tempf       310305030
+**1238    tempf       310305040
+**1239    tempf       310305050
+**1240    tempf       310305060
+**1241    tempf       310305070
+**1242    tempf       310401010
+**1243    tempf       310401020
+**1244    tempf       310401030
+**1245    tempf       310401040
+**1246    tempf       310401050
+**1247    tempf       310401060
+**1248    tempf       310401070
+**1249    tempf       310405010
+**1250    tempf       310405020
+**1251    tempf       310405030
+**1252    tempf       310405040
+**1253    tempf       310405050
+**1254    tempf       310405060
+**1255    tempf       310405070
+**1256    tempf       310501010
+**1257    tempf       310501020
+**1258    tempf       310501030
+**1259    tempf       310501040
+**1260    tempf       310501050
+**1261    tempf       310501060
+**1262    tempf       310501070
+**1263    tempf       310505010
+**1264    tempf       310505020
+**1265    tempf       310505030
+**1266    tempf       310505040
+**1267    tempf       310505050
+**1268    tempf       310505060
+**1269    tempf       310505070
+**1270    tempf       310601010
+**1271    tempf       310601020
+**1272    tempf       310601030
+**1273    tempf       310601040
+**1274    tempf       310601050
+**1275    tempf       310601060
+**1276    tempf       310601070
+**1277    tempf       310605010
+**1278    tempf       310605020
+**1279    tempf       310605030
+**1280    tempf       310605040
+**1281    tempf       310605050
+**1282    tempf       310605060
+**1283    tempf       310605070
+**1284    tempf       310701010
+**1285    tempf       310701020
+**1286    tempf       310701030
+**1287    tempf       310701040
+**1288    tempf       310701050
+**1289    tempf       310701060
+**1290    tempf       310701070
+**1291    tempf       310705010
+**1292    tempf       310705020
+**1293    tempf       310705030
+**1294    tempf       310705040
+**1295    tempf       310705050
+**1296    tempf       310705060
+**1297    tempf       310705070
+*----end-of-block---->
 
 .end
