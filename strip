@@ -1,0 +1,56 @@
+=CEFR simulation strip card
+*
+100 strip fmtout.
+*>> Restart Input File Control
+*>> no.
+103 0
+*>>     code        param.
+1001    rktpow      0           *Total reactor power
+
+1020    tempf       180010000   *core inlet temperature
+1021    tempf       260010000   *core outlet temperature
+
+1030    p           312010000   *inner hot pool upper volume perssure
+1031    tempf       312010000   *inner hot pool upper volume liquid temperature
+1032    tempf       312010000   *inner hot pool upper volume gas temperature
+
+1040    tempf       400010000   *IHX#1 inlet temperature
+1041    tempf       400180000   *IHX#1 outlet temperature
+1042    tempf       401010000   *IHX#2 inlet temperature
+1043    tempf       401180000   *IHX#2 outlet temperature
+1044    tempf       402010000   *IHX#3 inlet temperature
+1045    tempf       402180000   *IHX#3 outlet temperature
+1046    tempf       403010000   *IHX#4 inlet temperature
+1047    tempf       403180000   *IHX#4 outlet temperature
+
+
+* inner hot pool temperature
+*<----block---- inhpool : 1D
+1050    tempf       310010000
+1051    tempf       310020000
+1052    tempf       310030000
+1053    tempf       310040000
+1054    tempf       310050000
+1055    tempf       310060000
+1056    tempf       310070000
+*----end-of-block---->
+*<----block---- inhpool : 3D
+*
+* TODO: 三维热池的strip card
+*
+*----end-of-block---->
+
+
+1110    pmpvel      710         *Rotational velocity in the pump#1
+1111    pmpvel      711         *Rotational velocity in the pump#2
+
+
+* core inlet liquid mass flow rate
+1120    mflowfj     180010000   *flow to component 200
+1121    mflowfj     180020000   *flow to component 210
+1122    mflowfj     180030000   *flow to component 220
+1123    mflowfj     180040000   *flow to component 230
+1124    mflowfj     180050000   *flow to component 240
+1125    mflowfj     180080000   *flow to component 250
+
+.end
