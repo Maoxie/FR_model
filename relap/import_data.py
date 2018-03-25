@@ -14,6 +14,8 @@ def stripf_preprocess(filename):
     Reform stripf file. Remove linefeeds for a data row. 
     '''
     filepath = Path(filename)
+    if not filepath.exists():
+        raise "{0} doesn't exist".format(filepath)
     with open(filename, 'r') as f:
         lines = f.readlines()
         new_row_pattern = re.compile(r'^  plot[a-z]{3}')    # pattern for the begin of a new row of record
