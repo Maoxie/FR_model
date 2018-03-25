@@ -2,6 +2,11 @@
 .git/
 .vscode/
 
+# folder to put relap model
+model/
+# folder for relap executable file
+relap_bin/
+
 # Windows:
 Thumbs.db
 ehthumbs.db
