@@ -15,7 +15,7 @@ def stripf_preprocess(filename):
     '''
     filepath = Path(filename)
     if not filepath.exists():
-        raise "{0} doesn't exist".format(filepath)
+        raise Exception("{0} doesn't exist".format(filepath))
     with open(filename, 'r') as f:
         lines = f.readlines()
         new_row_pattern = re.compile(r'^  plot[a-z]{3}')    # pattern for the begin of a new row of record
@@ -45,17 +45,27 @@ def stripf_preprocess(filename):
 
 def read_processed(filename):
     """
-    From processed stripf file (using stripf_preprocess()) import data into pandas.Dataframe object.
+    From processed stripf file (by stripf_preprocess()) import data into pandas.Dataframe object.
     """
-    n_col = 31
-    col_names = range(n_col)
-    converters_dict = dict(zip(range(n_col), [data_converter]*n_col))
-    df = pd.read_table(filename, sep=r'\s+', 
-                        skiprows=3,
-                        header=None,
-                        names=col_names,
-                        converters=converters_dict)
-    return df
+    if not Path(filename).exists():
+        raise Exception("{0} doesn't exist".format(Path(filename)))
+    with open(filename, 'r') as f:
+        # read the number of lines
+        plotinf_line = re.match(r"^  plotinf\s+([0-9]+).+", f.readlines()[2])
+        if plotinf_line:
+            n_col = int(plotinf_line.group(1))
+        else:
+            raise Exception("Can't read the plotinf line. Make sure the stripf file is corrective.")
+        
+        f.seek(0)
+        col_names = range(n_col)
+        converters_dict = dict(zip(range(n_col), [data_converter]*n_col))
+        df = pd.read_table(f, sep=r'\s+', 
+                            skiprows=3,
+                            header=None,
+                            names=col_names,
+                            converters=converters_dict)
+        return df
     
 
 def data_converter(rec : str):
