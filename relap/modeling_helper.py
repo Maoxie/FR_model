@@ -174,5 +174,8 @@ def check_input_errors(filename : str):
     print("Lines of cards:\t{}".format(len(exist_cards)))
     print("Number of hydraulic components:\t{}".format(len(exist_hyd_comp)))
     print("Number of explicitly defined junctions:\t{}".format(n_junctions))
-    print("{} promblems found. They have been printed above.".format(n_warnings))
+    if n_warnings>0:
+        print("{} promblems found. They have been printed above.".format(n_warnings))
+    else:
+        print("No problem found.")
     print("----------------------------------------------------------")
