@@ -13,11 +13,9 @@
 0000115   1.0
 *>> Hydrodynamic System Control
 *>> vol.num.  elevation  fluid  name
-0000120   400010000  0.0  na   Nowindow
-0000121   805180000  0.0  na   Nowindow
-0000122   815180000  0.0  na   Nowindow
-0000123   825180000  0.0  na   Nowindow
-0000124   835180000  0.0  na   Nowindow
+0000120   400010000  0.0  na   Nowindow     * CIRCUIT 1 钠回路
+0000121   805220000  0.0  na   Nowindow     * CIRCUIT 2 LOOP 1 钠回路
+0000122   825220000  0.0  na   Nowindow     * CIRCUIT 2 LOOP 2 钠回路
 *>> variable trips
 *>> var.code parameter relationship var.code parameter constatnt latch timeof
 402 time 0 ge null 0 0. l 0.
@@ -1708,10 +1706,10 @@
 *>> 过热器(3.877m = 0.300*12 + 0.277)(简化流道)
 8430000   ovheat    pipe
 8430001   13
-8430101   0.197  20 * flow area
+8430101   0.197  13 * flow area
 8430301   0.277  1  * length                 
 8430302   0.300  13                   
-8430401   0.0    12  * volume of node 
+8430401   0.0    13  * volume of node 
 8430501   0.0    13  * horizontal angle
 8430601   90.0   13  * vertical angle
 8430801   1.0e-5 0.0572  13  * friction factor - roughness * 根据面积、管径、管数推算的水力直径
@@ -1733,7 +1731,7 @@
 *>> 蒸发器(-10.477m = 0.300*34 + 0.277)(简化流道)
 8450000   ovheat    pipe
 8450001   35
-8450101   0.136  20 * flow area
+8450101   0.136  35  * flow area
 8450301   0.300  34  * length                 
 8450302   0.277  35                   
 8450401   0.0    35  * volume of node 
@@ -1794,7 +1792,7 @@
 **8500202   2.0       69.58    0.0      0.0
 **8500203   15000.0   69.58    0.0      0.0
 
-8500000   bffjun    tmdpjun
+8500000   bffjun    sngljun
 8500101 851010000 849000000 0.00 0.0 0.0 01000 
 8500201 0 0.0 0.0 0.0  
 
@@ -2260,7 +2258,7 @@
 *>> 过热器(3.877m = 0.300*12 + 0.277)(简化流道)
 8730000   ovheat    pipe
 8730001   13
-8730101   0.197  20 * flow area
+8730101   0.197  13 * flow area
 8730301   0.277  1  * length
 8730302   0.300  13
 8730401   0.0    12  * volume of node
@@ -2285,7 +2283,7 @@
 *>> 蒸发器(-10.477m = 0.300*34 + 0.277)(简化流道)
 8750000   ovheat    pipe
 8750001   35
-8750101   0.136  20 * flow area
+8750101   0.136  35 * flow area
 8750301   0.300  34  * length
 8750302   0.277  35
 8750401   0.0    35  * volume of node
@@ -2346,7 +2344,7 @@
 **8500202   2.0       69.58    0.0      0.0
 **8500203   15000.0   69.58    0.0      0.0
 
-8800000   bffjun    tmdpjun
+8800000   bffjun    sngljun
 8800101 881010000 879000000 0.00 0.0 0.0 01000
 8800201 0 0.0 0.0 0.0
 
@@ -2498,10 +2496,90 @@
 *$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
-*>> SG#1
+*------------------------ steam generator #1 -------------------------
 
+*>> 给水
+9010000   fdwater    tmdpvol
+* area lung vol horz vert delz rug hyd flag
+9010101 0.0 1. 1.e6 0.0 90.0 1.0 0.0 0.0 10
+9010200 1 * option
+* time temp static_quality      *TODO: 给水压力？
+9010201 0.0 463.0 1.0
 
-*>> SG#2
+*>> 给水管道
+9020000   fwtmdpj   tmdpjun
+9020101   901010000 903000000 0.0       
+*>> ctl.word  trip.num
+9020200   1         0                   
+*>> time    mflowr.l    mflowr.g    0.0     *给水控制流量 *TODO:
+9020201   0.0       69.58    0.0      0.0
+9020202   2.0       69.58    0.0      0.0
+9020203   15000.0   69.58    0.0      0.0
+
+*>> 蒸发器管侧（水侧）
+9030000   ovheat    pipe
+9030001   35
+9030101   0.136  35  * flow area  *TODO: 计算流通面积
+9030301   0.277  1   * length   
+9030302   0.300  35                   
+9030401   0.0    35  * volume of node 
+9030501   0.0    35  * horizontal angle
+9030601   90.0   35  * vertical angle
+9030801   1.0e-5 0.0402  35  * friction factor - roughness  * TODO: 计算水力直径
+9030901   0.0 0.0 34 * concentrated loss coeff.     
+9031001   00000   35 * volume flags         
+9031101   001000  34 * junction flags      
+9031201   3 2.50E+05 733.0 0.0 0.0 0.0 1    *TODO: 初始温度
+9031202   3 2.50E+05 658.0 0.0 0.0 0.0 24  
+9031203   3 2.50E+05 583.0 0.0 0.0 0.0 35  
+9031300 0                               
+9031301 0.0 0.0 0. 34
+
+*>> 蒸发器到过热器的管道
+9040000 i_mjun sngljun
+9040101 903010000 905000000 0.00 50.0 50.0 01000
+9040201 0 0.0 0.0 0.0
+
+*>> 过热器管侧（水侧）
+*>> TODO: 9050000
+9050000   ovheat    pipe
+9050001   13
+9050101   0.197  13 * flow area  *TODO: 计算流通面积
+9050301   0.300  12 * length                 
+9050302   0.277  13                   
+9050401   0.0    13  * volume of node 
+9050501   0.0    13  * horizontal angle
+9050601   -90.0  13  * vertical angle
+9050801   1.0e-5 0.0572  13  * friction factor - roughness *TODO: 计算流通面积
+9050901   0.0 0.0 12 * concentrated loss coeff.     
+9051001   00000   13 * volume flags         
+9051101   001000  12 * junction flags      
+9051201   3 2.50E+05 769.0 0.0 0.0 0.0 1   *TODO: 初始温度
+9051202   3 2.50E+05 751.0 0.0 0.0 0.0 2  
+9051203   3 2.50E+05 733.0 0.0 0.0 0.0 13  
+9051300 0                               
+9051301 0.0 0.0 0. 12
+
+*>> 蒸发器出口排汽管道
+9060000   fwtmdpj   tmdpjun
+9060101   905010000 907000000 0.0       
+*>> ctl.word  trip.num
+9060200   1         0                   
+*>> time    mflowr.l    mflowr.g    0.0     *控制排汽流量 *TODO:
+9060201   0.0       80.16    0.0      0.0
+9060202   2.0       80.16    0.0      0.0
+9060203   15000.0   80.16    0.0      0.0
+
+*>> 排汽
+9070000   fdwater    tmdpvol
+* area lung vol horz vert delz rug hyd flag
+9070101 0.0 1. 1.e6 0.0 90.0 1.0 0.0 0.0 10
+9070200 3 * option
+* time press temp      *TODO: 给水压力？
+9070201 0.0 2.0E+5 753.0
+
+*------------------------ steam generator #2 -------------------------
+* TODO:
 
 
 
@@ -2514,7 +2592,7 @@
 
 *>> 对应200-堆芯燃料组件
 *>> num.axl num.rad type flag l.bnd refl bnd.vol max.i
-12001000  16 31 2 1 0.0 0 1 32  # 轴向16、径向31、圆柱形、无再淹没
+12001000  16 31 2 1 0.0 0 1 32  * 轴向16、径向31、圆柱形、无再淹没
 *>> Heat Structure Mesh Flags
 *>> location format
 12001100  0 2
@@ -2522,10 +2600,10 @@
 12001101  0.0001 30
 *>> Heat Structure Composition Data (Radial)
 *>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num
-12001201  5  8
-12001202  1  26
-12001203  5  27
-12001204  3  30
+12001201  5  8      * 材料5——He气体
+12001202  1  26     * 材料1——UO2燃料
+12001203  5  27     * 材料5——He气体
+12001204  3  30     * 材料3——316型不锈钢
 *>> Heat Structure Source Distribution Data (Radial)
 *>> source_value(热源值)  interval.num
 12001301  0.0   8
@@ -2540,6 +2618,7 @@
 *>> Left Boundary Condition
 12001501  0     0    0      1     247.05  16    *对称或绝热边界,左控制体为0
 *>> Right Boundary Condition
+*>>     right  inc  cnd.type  a.code  area/len/fac  num
 12001601  200060000  10000  1  1  247.05  16    *右边界为200组件
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
@@ -2751,55 +2830,138 @@
 14031901 0.012 100. 100. 0. 0. 0. 0. 1. 18
 
 
-*>> 对应一环路过热器，壳侧-钠回路，管侧-水回路      # TODO: 完成热构件
+*>> 对应1#环路过热器，壳侧-钠回路，管侧-水回路
 *>> num.axl num.rad type flag l.bnd refl bnd.vol max.i
-18431000  13 5 2 1 0.0 0 1 32  # 轴向13、径向4、圆柱形、无再淹没
+18431000  13 11 2 1 0.0135  * 轴向13、径向11、圆柱形、无再淹没, 左边界取管内径
 *>> Heat Structure Mesh Flags
 *>> loc_flag format_flag
 18431100  0 2       * 下面将使用序列展开式格式
-*>> mesh_interval  number
-18431101  0.0001 30
+*>> mesh_interval  number *壁厚0.0025m
+18431101  0.00025 10
 *>> Heat Structure Composition Data (Radial)
-*>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num     # TODO: 完成热物性表
-18431201  5  8
-18431202  1  26
-18431203  5  27
-18431204  3  30
+*>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num
+18431201  4  10  * 材料4——HT9钢 *TODO: 是否需根据实际材料重写？
 *>> Heat Structure Source Distribution Data (Radial)
 *>> source_value(热源值)  interval.num
-18431301  0.0   8
-18431302  0.500 17
-18431303  0.500 26
-18431304  0.0   30
+18431301  0.0   10
 *>> Initial Temperature Flag
 18431400  0
 *>> Initial Temperature Data
 *>> temperature  mesh_point_num
-18431401  633.  31
-*>> Left Boundary Condition
-18431501  0     0    0      1     247.05  16    *对称或绝热边界,左控制体为0
-*>> Right Boundary Condition
-18431601  200060000  10000  1  1  247.05  16    *右边界为200组件
+18431401  633.  11
+*>> Left Boundary Condition     * 管侧(905)
+*>>     left  inc  cnd.type  a.code  area/len/fac  num
+18431501  905130000 -10000  1  1  926.603  13    *长度: 239*3.877m(单管长度)
+*>> Right Boundary Condition    * 壳侧(843)
+18431601  843010000  10000  1  1  926.603  13
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
-18431701  10082 0.0027163  0. 0.  01    *热源是控制变量82
-18431702  10082 0.0027163  0. 0.  02
-18431703  10082 0.0027163  0. 0.  03
-18431704  10082 0.0027163  0. 0.  04
-18431705  10082 0.0027163  0. 0.  05   *------------------
-18431706  10082 0.0277145  0. 0.  06
-18431707  10082 0.0798007  0. 0.  07
-18431708  10082 0.1222618  0. 0.  08
-18431709  10082 0.1499763  0. 0.  09
-18431710  10082 0.1596014  0. 0.  10
-18431711  10082 0.1499763  0. 0.  11
-18431712  10082 0.1222618  0. 0.  12
-18431713  10082 0.0798007  0. 0.  13
-18431714  10082 0.0277145  0. 0.  14   
-18431715  10082 0.0034938  0. 0.  15   *-------------------
-18431716  10082 0.0034938  0. 0.  16
+18431701 0 0. 0. 0. 13
+*>> Additional Left Boundary
+18431801  0.    100. 100. 0. 0. 0. 0. 1. 13
 *>> Additional Right Boundary
-18431901  0. 10.05 0.05 0. 0. 0. 0. 1. 16
+18431901  0.016 100. 100. 0. 0. 0. 0. 1. 13
+
+
+*>> 对应1#环路蒸发器，壳侧-钠回路，管侧-水回路
+*>> num.axl num.rad type flag l.bnd refl bnd.vol max.i
+18451000  35 11 2 1 0.0135  * 轴向13、径向5、圆柱形、无再淹没, 左边界取管内径
+*>> Heat Structure Mesh Flags
+*>> loc_flag format_flag
+18451100  0 2       * 下面将使用序列展开式格式
+*>> mesh_interval  number
+18451101  0.00025 10 
+*>> Heat Structure Composition Data (Radial)
+*>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num
+18451201  4  10  * 材料4——HT9钢 *TODO: 是否需根据实际材料重写？
+*>> Heat Structure Source Distribution Data (Radial)
+*>> source_value(热源值)  interval.num
+18451301  0.0   10
+*>> Initial Temperature Flag
+18451400  0
+*>> Initial Temperature Data
+*>> temperature  mesh_point_num
+18451401  465.  11
+*>> Left Boundary Condition     * 管侧(903)
+*>>     left  inc  cnd.type  a.code  area/len/fac  num
+18451501  903350000 -10000  1  1  926.603  35    *长度: 239*单管长度
+*>> Right Boundary Condition    * 壳侧(845)
+18451601  845010000  10000  1  1  926.603  35
+*>> Source Data
+*>> type in.mltip lf.mltp rt.mltp num
+18451701 0 0. 0. 0. 35
+*>> Additional Left Boundary
+18451801  0.    100. 100. 0. 0. 0. 0. 1. 35
+*>> Additional Right Boundary
+18451901  0.016 100. 100. 0. 0. 0. 0. 1. 35
+
+
+
+
+*>> 对应2#环路过热器，壳侧-钠回路，管侧-水回路
+*>> num.axl num.rad type flag l.bnd refl bnd.vol max.i
+18731000  13 11 2 1 0.0135  * 轴向13、径向5、圆柱形、无再淹没, 左边界取管内径
+*>> Heat Structure Mesh Flags
+*>> loc_flag format_flag
+18731100  0 2       * 下面将使用序列展开式格式
+*>> mesh_interval  number
+18731101  0.00025 10
+*>> Heat Structure Composition Data (Radial)
+*>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num
+18731201  4  10  * 材料4——HT9钢 *TODO: 是否需根据实际材料重写？
+*>> Heat Structure Source Distribution Data (Radial)
+*>> source_value(热源值)  interval.num
+18731301  0.0   10
+*>> Initial Temperature Flag
+18731400  0
+*>> Initial Temperature Data
+*>> temperature  mesh_point_num
+18731401  633.  11
+*>> Left Boundary Condition     * 管侧
+*>>     left  inc  cnd.type  a.code  area/len/fac  num
+18731501  925130000 -10000  1  1  926.603  13    *长度: 239*3.877m(单管长度)
+*>> Right Boundary Condition    * 壳侧
+18731601  873010000  10000  1  1  926.603  13
+*>> Source Data
+*>> type in.mltip lf.mltp rt.mltp num
+18731701 0 0. 0. 0. 13
+*>> Additional Left Boundary
+18731801  0.    100. 100. 0. 0. 0. 0. 1. 13
+*>> Additional Right Boundary
+18731901  0.016 100. 100. 0. 0. 0. 0. 1. 13
+
+
+*>> 对应2#环路蒸发器，壳侧-钠回路，管侧-水回路
+*>> num.axl num.rad type flag l.bnd refl bnd.vol max.i
+18451000  35 11 2 1 0.0135  * 轴向13、径向5、圆柱形、无再淹没, 左边界取管内径
+*>> Heat Structure Mesh Flags
+*>> loc_flag format_flag
+18451100  0 2       * 下面将使用序列展开式格式
+*>> mesh_interval  number
+18451101  0.00025 10
+*>> Heat Structure Composition Data (Radial)
+*>> compo.num(需与热构件热物性数据表201MMMNN中MMM相同) intervel.num
+18451201  4  10  * 材料4——HT9钢 *TODO: 是否需根据实际材料重写？
+*>> Heat Structure Source Distribution Data (Radial)
+*>> source_value(热源值)  interval.num
+18451301  0.0   10
+*>> Initial Temperature Flag
+18451400  0
+*>> Initial Temperature Data
+*>> temperature  mesh_point_num
+18451401  465.  11
+*>> Left Boundary Condition     * 管侧(923)
+*>>     left  inc  cnd.type  a.code  area/len/fac  num
+18451501  923350000 -10000  1  1  926.603  35    *长度: 239*(单管长度)
+*>> Right Boundary Condition    * 壳侧(875)
+18451601  875010000  10000  1  1  926.603  35
+*>> Source Data
+*>> type in.mltip lf.mltp rt.mltp num
+18451701 0 0. 0. 0. 35
+*>> Additional Left Boundary
+18451801  0.    100. 100. 0. 0. 0. 0. 1. 35
+*>> Additional Right Boundary
+18451901  0.016 100. 100. 0. 0. 0. 0. 1. 35
 
 
 *----------------------------------------------------------------------
