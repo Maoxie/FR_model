@@ -5,23 +5,21 @@ import subprocess
 from pathlib import Path
 
 
-# file path
-root_path = Path(os.path.dirname(os.path.dirname(__file__)))    # project root path
-# put model input cards in the "./model" folder
-in_out_dir = root_path / 'model'
-relap_bin_exe = root_path / 'relap_bin' / 'relap5.exe'      # main relap5 executatble file
 
-def run_new_model():
+def run_new_model(root=r".\relap_bin"):
     # delete outdta for a "new" question before running
-    i_file = in_out_dir / 'indta'
-    o_file = in_out_dir / 'outdta'
-    r_file = in_out_dir / 'rstplt'
+    root_path = Path(os.path.abspath(root))
+    relap_bin_exe = root_path / 'relap5.exe'      # main relap5 executatble file
+
+    i_file = root_path / 'indta'
+    o_file = root_path / 'outdta'
+    r_file = root_path / 'rstplt'
     for filepath in [o_file, r_file]:
-        try:
-            filepath.replace(o_file.with_name('{}.old'.format(filepath.name)))
-            print("{0} has been renamed as {0}.old.".format(filepath.name))
-        except:
-            pass
+        if filepath.exists():
+            opt = input(u"是否删除已有的{}? y/n: ".format(filepath.name))
+            if opt=="" or opt.lower()=="y":
+                filepath.replace(o_file.with_name('{}.old'.format(filepath.name)))
+                print("{0} has been renamed as {0}.old.".format(filepath.name))
 
     run_options = {
         '-i': '"{}"'.format(i_file),
@@ -32,13 +30,17 @@ def run_new_model():
     call_str = '{relap} {option}'.format(relap=relap_bin_exe, option=options_str)
     print("----start run new model----")
     print("-->> {}".format(call_str))
+    os.chdir(root_path)
     subprocess.call(call_str)
     print("----complete model----")
 
-def run_strip():
-    i_file = in_out_dir / 'strip'
-    o_file = in_out_dir / 'outdta'
-    r_file = in_out_dir / 'rstplt'
+def run_strip(root=r".\relap_bin"):
+    root_path = Path(root)
+    relap_bin_exe = root_path / 'relap5.exe'      # main relap5 executatble file
+
+    i_file = root_path / 'strip'
+    o_file = root_path / 'outdta'
+    r_file = root_path / 'rstplt'
     run_options = {
         'i': "'{}'".format(i_file),
         'o': "'{}'".format(o_file),
@@ -53,3 +55,4 @@ def run_strip():
     print("----start strip----")
     subprocess.call('{relap} {option}'.format(relap=relap_bin_exe, option=options_str))
     print("----complete strip----")
+
