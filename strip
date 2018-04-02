@@ -16,14 +16,14 @@
 1031    tempf       312010000   *inner hot pool upper volume liquid temperature
 1032    tempf       312010000   *inner hot pool upper volume gas temperature
 
-1040    tempf       400010000   *IHX#1 inlet temperature
-1041    tempf       400180000   *IHX#1 outlet temperature
-1042    tempf       401010000   *IHX#2 inlet temperature
-1043    tempf       401180000   *IHX#2 outlet temperature
-1044    tempf       402010000   *IHX#3 inlet temperature
-1045    tempf       402180000   *IHX#3 outlet temperature
-1046    tempf       403010000   *IHX#4 inlet temperature
-1047    tempf       403180000   *IHX#4 outlet temperature
+1040    tempf       400010000   *IHX#1 primary inlet temperature
+1041    tempf       400180000   *IHX#1 primary outlet temperature
+1042    tempf       401010000   *IHX#2 primary inlet temperature
+1043    tempf       401180000   *IHX#2 primary outlet temperature
+1044    tempf       402010000   *IHX#3 primary inlet temperature
+1045    tempf       402180000   *IHX#3 primary outlet temperature
+1046    tempf       403010000   *IHX#4 primary inlet temperature
+1047    tempf       403180000   *IHX#4 primary outlet temperature
 
 1110    pmpvel      710         *Rotational velocity in the pump#1
 1111    pmpvel      711         *Rotational velocity in the pump#2
@@ -148,5 +148,115 @@
 **1296    tempf       310705060
 **1297    tempf       310705070
 *----end-of-block---->
+
+
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$                  $$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$  secondary SIDE  $$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$                  $$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+1401    tempf       805010000   *IHX#1 secondary inlet temperature
+1402    tempf       805220000   *IHX#1 secondary outlet temperature
+1403    tempf       815010000   *IHX#2 secondary inlet temperature
+1404    tempf       815220000   *IHX#2 secondary outlet temperature
+1405    tempf       825010000   *IHX#3 secondary inlet temperature
+1406    tempf       825220000   *IHX#3 secondary outlet temperature
+1407    tempf       835010000   *IHX#4 secondary inlet temperature
+1408    tempf       835220000   *IHX#4 secondary outlet temperature
+1411    p           805010000   *IHX#1 secondary inlet perssure
+1412    p           805220000   *IHX#1 secondary outlet perssure
+1413    p           815010000   *IHX#2 secondary inlet perssure
+1414    p           815220000   *IHX#2 secondary outlet perssure
+1415    p           825010000   *IHX#3 secondary inlet perssure
+1416    p           825220000   *IHX#3 secondary outlet perssure
+1417    p           835010000   *IHX#4 secondary inlet perssure
+1418    p           835220000   *IHX#4 secondary outlet perssure
+
+
+1421    tempf       843010000   *overheater#1 sodium inlet temperature
+1422    tempf       843130000   *overheater#1 sodium outlet temperature
+1423    tempf       845010000   *sg#1 sodium inlet temperature
+1424    tempf       845350000   *sg#1 sodium outlet temperature
+1425    tempf       873010000   *overheater#2 sodium inlet temperature
+1426    tempf       873130000   *overheater#2 sodium outlet temperature
+1427    tempf       875010000   *sg#2 sodium inlet temperature
+1428    tempf       875350000   *sg#2 sodium outlet temperature
+1431    p           843010000   *overheater#1 sodium inlet perssure
+1432    p           843130000   *overheater#1 sodium outlet perssure
+1433    p           845010000   *sg#1 sodium inlet perssure
+1434    p           845350000   *sg#1 sodium outlet perssure
+1435    p           873010000   *overheater#2 sodium inlet perssure
+1436    p           873130000   *overheater#2 sodium outlet perssure
+1437    p           875010000   *sg#2 sodium inlet perssure
+1438    p           875350000   *sg#2 sodium outlet perssure
+1441    mflowfj     842000000   *overheater#1 inlet sodium mass flow rate
+1442    mflowfj     872000000   *overheater#2 inlet sodium mass flow rate
+
+
+1451    p           847090000   *loop#1 sodium buffer tank inlet perssure
+1452    p           855010000   *loop#1 sodium buffer tank outlet perssure
+1453    p           877090000   *loop#2 sodium buffer tank inlet perssure
+1454    p           885010000   *loop#2 sodium buffer tank outlet perssure
+
+
+1461    tempf       855010000   *loop#1 pump inlet temperature
+1462    tempf       859010000   *loop#1 pump outlet temperature
+1463    tempf       885010000   *loop#2 pump inlet temperature
+1464    tempf       889010000   *loop#2 pump outlet temperature
+**1465    p           855010000   *loop#1 pump inlet perssure
+**1466    p           859010000   *loop#1 pump outlet perssure
+1467    p           885010000   *loop#2 pump inlet perssure
+1468    p           889010000   *loop#2 pump outlet perssure
+
+1471    mflowfj     856000000   *loop#1 pump inlet sodium mass flow rate
+1472    mflowfj     886000000   *loop#2 pump inlet sodium mass flow rate
+
+1481    pmpvel      857         *Rotational velocity in the secondary curcuit pump#1
+1482    pmpvel      887         *Rotational velocity in the secondary curcuit pump#2
+
+
+1491    mflowfj     820020000   *IHX1 inlet sodium mass flow rate
+1492    mflowfj     820030000   *IHX2 inlet sodium mass flow rate
+1493    mflowfj     840020000   *IHX3 inlet sodium mass flow rate
+1494    mflowfj     840030000   *IHX4 inlet sodium mass flow rate
+
+
+1400    tempf       820010000   *loop#1 IHX inlet remperature
+1410    tempf       810010000   *loop#1 IHX outlet remperature
+1420    tempf       840010000   *loop#2 IHX inlet remperature
+1430    tempf       830010000   *loop#2 IHX outlet remperature
+**1440    p           820010000   *loop#1 IHX inlet perssure
+**1450    p           810010000   *loop#1 IHX outlet perssure
+**1460    p           840010000   *loop#2 IHX inlet perssure
+**1470    p           830010000   *loop#2 IHX outlet perssure
+
+
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$                      $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$    THIRD CIRCUIT     $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$                      $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+1601    tempf       903010000   *sg#1 water inlet temperature
+1602    tempf       905010000   *overheater#1 water/vapor inlet temperature
+1603    tempf       905130000   *overheater#1 vapor outlet temperature
+1604    tempf       923010000   *sg#2 water inlet temperature
+1605    tempf       925010000   *overheater#2 water/vapor inlet temperature
+1606    tempf       925130000   *overheater#2 vapor outlet temperature
+1611    p           903010000   *sg#1 water inlet perssure
+1612    p           905010000   *overheater#1 water/vapor inlet perssure
+1613    p           905130000   *overheater#1 vapor outlet perssure
+1614    p           923010000   *sg#2 water inlet perssure
+1615    p           925010000   *overheater#2 water/vapor inlet perssure
+1616    p           925130000   *overheater#2 vapor outlet perssure
+
+1621    mflowfj     902000000   *sg#1 feed water mass flow rate
+1622    mflowfj     922000000   *sg#2 feed water mass flow rate
+
 
 .end
