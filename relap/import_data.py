@@ -49,6 +49,17 @@ def read_processed(filename):
     """
     if not Path(filename).exists():
         raise Exception("{0} doesn't exist".format(Path(filename)))
+    strip_file = Path(filename).with_name('strip')
+
+    col_names = [0]
+    with open(strip_file, 'r') as f:
+        # from strip read each variables' codes (1xxx).
+        for line in f:
+            code = re.match(r'^1\d{3}', line.strip())
+            if code:
+                col_names.append(int(code.group()))
+    col_names.sort()
+
     with open(filename, 'r') as f:
         # read the number of lines
         plotinf_line = re.match(r"^  plotinf\s+([0-9]+).+", f.readlines()[2])
@@ -56,9 +67,7 @@ def read_processed(filename):
             n_col = int(plotinf_line.group(1))
         else:
             raise Exception("Can't read the plotinf line. Make sure the stripf file is corrective.")
-        
         f.seek(0)
-        col_names = range(n_col)
         converters_dict = dict(zip(range(n_col), [data_converter]*n_col))
         df = pd.read_table(f, sep=r'\s+', 
                             skiprows=3,
@@ -79,10 +88,11 @@ def data_converter(rec : str):
         return rec
 
 
-def read_stripf(filename):
+def read_stripf(filename=r'..\model\stripf'):
     """
     From raw stripf file import data into pandas.Dataframe object.
     """
+    filename = Path(os.path.abspath(filename))
     tmp = stripf_preprocess(filename)
     df = read_processed(tmp)
     os.remove(tmp)
