@@ -39,7 +39,7 @@ def generate_loop2_codes():
     # read reference table
     ref_table = {}
     import csv
-    with open(ref_table_filepath, 'r', encoding='utf-8') as f:
+    with open(ref_table_filepath, 'r', encoding='gb2312') as f:
         reader = csv.reader(f)
         _head_row = next(reader)
         for row in reader:
@@ -52,7 +52,7 @@ def generate_loop2_codes():
     output_lines = []
     line_couter = 0
     processed_counter = 0
-    with open(loop1_filepath, 'r', encoding="utf-8",) as f:
+    with open(loop1_filepath, 'r') as f:
         # process each line
         for line in f:
             line_couter += 1
@@ -89,7 +89,7 @@ def generate_loop2_codes():
             line_couter, processed_counter, line_couter-processed_counter))
     
     # results output
-    with open(output_filepath, 'w', encoding='utf-8') as outf:
+    with open(output_filepath, 'w') as outf:
         outf.writelines('\n'.join(output_lines))
 
 
@@ -110,7 +110,7 @@ def check_input_errors(filename : str):
     n_junctions = 0
 
     n_warnings = 0
-    with open(filename, 'r', encoding='utf-8') as f:
+    with open(filename, 'r') as f:
         print("-------------------- start checking ----------------------")
         i_cline = 0     # index for the current line
         for line in f:
