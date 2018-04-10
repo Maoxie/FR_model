@@ -17,6 +17,8 @@ class RelapRePattern:
     junc_geo = re.compile(r"^(\d{3})\d{4} +(\d{3})\d{6} +(\d{3})\d{6}.*")
                                                                 # junction geometry cards
                                                                 # group1: comp, group2: from, group3: to
+    pump_junc = re.compile(r"^(\d{3})010[89] +(\d{3})\d{6} .*") # pump inlet/outlet junction cards
+                                                                # group1: comp, group2: from/to
 
 def generate_loop2_codes():
     """
@@ -79,10 +81,19 @@ def generate_loop2_codes():
                         processed_line[:from_i] + rep_from_num + \
                         processed_line[from_i+3:to_i] + rep_to_num + \
                         processed_line[to_i+3:]
+                else:
+                    # replace 'from' / 'to' parameter for pump junction
+                    pump_junc_matched = re.match(RelapRePattern.pump_junc, processed_line)
+                    if pump_junc_matched:
+                        (_, fromto_num) = pump_junc_matched.groups()
+                        rep_fromto_num = ref_table[fromto_num]
+                        (fromto_i, _) = pump_junc_matched.span(2)
+                        processed_line = \
+                            processed_line[:fromto_i] + rep_fromto_num + \
+                            processed_line[fromto_i+3:]
                 # append to result list
                 output_lines.append(processed_line)
                 processed_counter += 1
-                # TODO:
             else:
                 output_lines.append(line)
         print("-- Total lines: {0}\n-- {1} line(s) processed, {2} line(s) not changed.".format(
@@ -145,8 +156,14 @@ def check_input_errors(filename : str):
             hyd_geo_card = re.match(RelapRePattern.junc_geo, line)
             if hyd_geo_card:
                 # a junction geometry card
-                # store connection relationship
                 (_, from_num, to_num) = hyd_geo_card.groups()
+            else:
+                pump_junc_card = re.match(RelapRePattern.pump_junc, line)
+                if pump_junc_card:
+                    # a pump inlet/outlet junction card
+                    (from_num, to_num) = pump_junc_card.groups()
+            if hyd_geo_card or pump_junc_card:
+                # store connection relationship
                 from_num = int(from_num)
                 to_num = int(to_num)
                 if from_num == to_num:
