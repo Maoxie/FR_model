@@ -6,13 +6,20 @@
 *>> no.
 103 0
 
+
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$                      $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$     PRIMARY SIDE     $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$                      $$$$$$$$$$$$$$$$$$$$$$$$$$
+*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 *>>     code        param.
 1001    rktpow      0           *Total reactor power
 
 1020    tempf       180010000   *core inlet temperature
 1021    tempf       260010000   *core outlet temperature
 
-1030    p           312010000   *inner hot pool upper volume perssure
+1030    p           312010000   *inner hot pool upper volume pressure
 1031    tempf       312010000   *inner hot pool upper volume liquid temperature
 1032    tempf       312010000   *inner hot pool upper volume gas temperature
 
@@ -24,6 +31,18 @@
 1045    tempf       402180000   *IHX#3 primary outlet temperature
 1046    tempf       403010000   *IHX#4 primary inlet temperature
 1047    tempf       403180000   *IHX#4 primary outlet temperature
+1050    p           400010000   *IHX#1 primary inlet pressure
+1051    p           400180000   *IHX#1 primary outlet pressure
+1052    p           401010000   *IHX#2 primary inlet pressure
+1053    p           401180000   *IHX#2 primary outlet pressure
+1054    p           402010000   *IHX#3 primary inlet pressure
+1055    p           402180000   *IHX#3 primary outlet pressure
+1056    p           403010000   *IHX#4 primary inlet pressure
+1057    p           403180000   *IHX#4 primary outlet pressure
+1060    mflowfj     400010000   *IHX#1 primary mass flow rate
+1061    mflowfj     401010000   *IHX#2 primary mass flow rate
+1062    mflowfj     402010000   *IHX#3 primary mass flow rate
+1063    mflowfj     403010000   *IHX#4 primary mass flow rate
 
 1110    pmpvel      710         *Rotational velocity in the pump#1
 1111    pmpvel      711         *Rotational velocity in the pump#2
@@ -167,15 +186,19 @@
 1406    tempf       825220000   *IHX#3 secondary outlet temperature
 1407    tempf       835010000   *IHX#4 secondary inlet temperature
 1408    tempf       835220000   *IHX#4 secondary outlet temperature
-1411    p           805010000   *IHX#1 secondary inlet perssure
-1412    p           805220000   *IHX#1 secondary outlet perssure
-1413    p           815010000   *IHX#2 secondary inlet perssure
-1414    p           815220000   *IHX#2 secondary outlet perssure
-1415    p           825010000   *IHX#3 secondary inlet perssure
-1416    p           825220000   *IHX#3 secondary outlet perssure
-1417    p           835010000   *IHX#4 secondary inlet perssure
-1418    p           835220000   *IHX#4 secondary outlet perssure
+1411    p           805010000   *IHX#1 secondary inlet pressure
+1412    p           805220000   *IHX#1 secondary outlet pressure
+1413    p           815010000   *IHX#2 secondary inlet pressure
+1414    p           815220000   *IHX#2 secondary outlet pressure
+1415    p           825010000   *IHX#3 secondary inlet pressure
+1416    p           825220000   *IHX#3 secondary outlet pressure
+1417    p           835010000   *IHX#4 secondary inlet pressure
+1418    p           835220000   *IHX#4 secondary outlet pressure
 
+1501    mflowfj     802000000   *IHX#1 inlet sodium mass flow rate
+1502    mflowfj     812000000   *IHX#2 inlet sodium mass flow rate
+1503    mflowfj     822000000   *IHX#3 inlet sodium mass flow rate
+1504    mflowfj     832000000   *IHX#4 inlet sodium mass flow rate
 
 1421    tempf       843010000   *overheater#1 sodium inlet temperature
 1422    tempf       843130000   *overheater#1 sodium outlet temperature
@@ -185,38 +208,38 @@
 1426    tempf       873130000   *overheater#2 sodium outlet temperature
 1427    tempf       875010000   *sg#2 sodium inlet temperature
 1428    tempf       875350000   *sg#2 sodium outlet temperature
-1431    p           843010000   *overheater#1 sodium inlet perssure
-1432    p           843130000   *overheater#1 sodium outlet perssure
-1433    p           845010000   *sg#1 sodium inlet perssure
-1434    p           845350000   *sg#1 sodium outlet perssure
-1435    p           873010000   *overheater#2 sodium inlet perssure
-1436    p           873130000   *overheater#2 sodium outlet perssure
-1437    p           875010000   *sg#2 sodium inlet perssure
-1438    p           875350000   *sg#2 sodium outlet perssure
+1431    p           843010000   *overheater#1 sodium inlet pressure
+1432    p           843130000   *overheater#1 sodium outlet pressure
+1433    p           845010000   *sg#1 sodium inlet pressure
+1434    p           845350000   *sg#1 sodium outlet pressure
+1435    p           873010000   *overheater#2 sodium inlet pressure
+1436    p           873130000   *overheater#2 sodium outlet pressure
+1437    p           875010000   *sg#2 sodium inlet pressure
+1438    p           875350000   *sg#2 sodium outlet pressure
 1441    mflowfj     842000000   *overheater#1 inlet sodium mass flow rate
 1442    mflowfj     872000000   *overheater#2 inlet sodium mass flow rate
 
 
-1451    p           847090000   *loop#1 sodium buffer tank inlet perssure
-1452    p           855010000   *loop#1 sodium buffer tank outlet perssure
-1453    p           877090000   *loop#2 sodium buffer tank inlet perssure
-1454    p           885010000   *loop#2 sodium buffer tank outlet perssure
+1451    p           847090000   *loop#1 sodium buffer tank inlet pressure
+1452    p           861010000   *loop#1 sodium buffer tank outlet pressure
+1453    p           877090000   *loop#2 sodium buffer tank inlet pressure
+1454    p           891010000   *loop#2 sodium buffer tank outlet pressure
 
 
-1461    tempf       855010000   *loop#1 pump inlet temperature
-1462    tempf       859010000   *loop#1 pump outlet temperature
-1463    tempf       885010000   *loop#2 pump inlet temperature
+1461    tempf       863010000   *loop#1 pump inlet temperature
+1462    tempf       867010000   *loop#1 pump outlet temperature
+1463    tempf       893010000   *loop#2 pump inlet temperature
 1464    tempf       889010000   *loop#2 pump outlet temperature
-**1465    p           855010000   *loop#1 pump inlet perssure
-**1466    p           859010000   *loop#1 pump outlet perssure
-1467    p           885010000   *loop#2 pump inlet perssure
-1468    p           889010000   *loop#2 pump outlet perssure
+1465    p           863010000   *loop#1 pump inlet pressure
+1466    p           867010000   *loop#1 pump outlet pressure
+1467    p           893010000   *loop#2 pump inlet pressure
+1468    p           889010000   *loop#2 pump outlet pressure
 
-1471    mflowfj     856000000   *loop#1 pump inlet sodium mass flow rate
-1472    mflowfj     886000000   *loop#2 pump inlet sodium mass flow rate
+1471    mflowfj     862000000   *loop#1 pump inlet sodium mass flow rate
+1472    mflowfj     892000000   *loop#2 pump inlet sodium mass flow rate
 
-1481    pmpvel      857         *Rotational velocity in the secondary curcuit pump#1
-1482    pmpvel      887         *Rotational velocity in the secondary curcuit pump#2
+1481    pmpvel      865         *Rotational velocity in the secondary curcuit pump#1
+1482    pmpvel      895         *Rotational velocity in the secondary curcuit pump#2
 
 
 1491    mflowfj     820020000   *IHX1 inlet sodium mass flow rate
@@ -225,15 +248,19 @@
 1494    mflowfj     840030000   *IHX4 inlet sodium mass flow rate
 
 
-1400    tempf       820010000   *loop#1 IHX inlet remperature
-1410    tempf       810010000   *loop#1 IHX outlet remperature
-1420    tempf       840010000   *loop#2 IHX inlet remperature
-1430    tempf       830010000   *loop#2 IHX outlet remperature
-**1440    p           820010000   *loop#1 IHX inlet perssure
-**1450    p           810010000   *loop#1 IHX outlet perssure
-**1460    p           840010000   *loop#2 IHX inlet perssure
-**1470    p           830010000   *loop#2 IHX outlet perssure
+1400    tempf       820010000   *loop#1 IHX inlet temperature
+1410    tempf       810010000   *loop#1 IHX outlet temperature
+1420    tempf       840010000   *loop#2 IHX inlet temperature
+1430    tempf       830010000   *loop#2 IHX outlet temperature
+**1440    p           820010000   *loop#1 IHX inlet pressure
+**1450    p           810010000   *loop#1 IHX outlet pressure
+**1460    p           840010000   *loop#2 IHX inlet pressure
+**1470    p           830010000   *loop#2 IHX outlet pressure
 
+1500    tempf       841260000   *overheater#1 inlet temperature
+1510    tempf       847010000   *sg#1 outlet temperature
+1520    tempf       871260000   *overheater#2 inlet temperature
+1530    tempf       877010000   *sg#2 outlet temperature
 
 *$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *$$$$$$$$$$$$$$$$$$$$$                      $$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -248,15 +275,288 @@
 1604    tempf       923010000   *sg#2 water inlet temperature
 1605    tempf       925010000   *overheater#2 water/vapor inlet temperature
 1606    tempf       925130000   *overheater#2 vapor outlet temperature
-1611    p           903010000   *sg#1 water inlet perssure
-1612    p           905010000   *overheater#1 water/vapor inlet perssure
-1613    p           905130000   *overheater#1 vapor outlet perssure
-1614    p           923010000   *sg#2 water inlet perssure
-1615    p           925010000   *overheater#2 water/vapor inlet perssure
-1616    p           925130000   *overheater#2 vapor outlet perssure
+1611    p           903010000   *sg#1 water inlet pressure
+1612    p           905010000   *overheater#1 water/vapor inlet pressure
+1613    p           905130000   *overheater#1 vapor outlet pressure
+1614    p           923010000   *sg#2 water inlet pressure
+1615    p           925010000   *overheater#2 water/vapor inlet pressure
+1616    p           925130000   *overheater#2 vapor outlet pressure
 
 1621    mflowfj     902000000   *sg#1 feed water mass flow rate
 1622    mflowfj     922000000   *sg#2 feed water mass flow rate
+
+1630    tempf       901010000   *sg#1 inlet water temperature
+1640    tempf       907010000   *overheater#1 outlet water temperature
+1650    tempf       921010000   *sg#2 inlet water temperature
+1660    tempf       927010000   *overheater#2 outlet water temperature
+
+1631    tempg       901010000   *sg#1 inlet vapor temperature
+1641    tempg       907010000   *overheater#1 outlet vapor temperature
+1651    tempg       921010000   *sg#2 inlet vapor temperature
+1661    tempg       927010000   *overheater#2 outlet vapor temperature
+
+1632    voidg       901010000   *sg#1 inlet vapor fraction
+1642    voidg       907010000   *overheater#1 outlet vapor fraction
+1652    voidg       921010000   *sg#2 inlet vapor fraction
+1662    voidg       927010000   *overheater#2 outlet vapor fraction
+
+*---------------------------------------------------------------------
+* details for specific components
+*---------------------------------------------------------------------
+**********************************************************************
+* 1701~1718
+* IHX#1 primary temperature distribution
+1701    tempf       400010000
+1702    tempf       400020000
+1703    tempf       400030000
+1704    tempf       400040000
+1705    tempf       400050000
+1706    tempf       400060000
+1707    tempf       400070000
+1708    tempf       400080000
+1709    tempf       400090000
+1710    tempf       400100000
+1711    tempf       400110000
+1712    tempf       400120000
+1713    tempf       400130000
+1714    tempf       400140000
+1715    tempf       400150000
+1716    tempf       400160000
+1717    tempf       400170000
+1718    tempf       400180000
+**********************************************************************
+* 1721~1741
+* IHX#1 secondary temperature distribution
+1721    tempf       805010000
+1722    tempf       805020000
+1723    tempf       805030000
+1724    tempf       805040000
+1725    tempf       805050000
+1726    tempf       805060000
+1727    tempf       805070000
+1728    tempf       805080000
+1729    tempf       805090000
+1730    tempf       805100000
+1731    tempf       805110000
+1732    tempf       805120000
+1733    tempf       805130000
+1734    tempf       805140000
+1735    tempf       805150000
+1736    tempf       805160000
+1737    tempf       805170000
+1738    tempf       805180000
+1739    tempf       805190000
+1740    tempf       805200000
+1741    tempf       805210000
+**********************************************************************
+* 1751~1763,1771~1805
+* overheater#1 sodium temperature distribution,SG#1 sodium temperature distribution
+1751    tempf       843010000
+1752    tempf       843020000
+1753    tempf       843030000
+1754    tempf       843040000
+1755    tempf       843050000
+1756    tempf       843060000
+1757    tempf       843070000
+1758    tempf       843080000
+1759    tempf       843090000
+1760    tempf       843100000
+1761    tempf       843110000
+1762    tempf       843120000
+1763    tempf       843130000
+*                                 
+1771    tempf       845010000
+1772    tempf       845020000
+1773    tempf       845030000
+1774    tempf       845040000
+1775    tempf       845050000
+1776    tempf       845060000
+1777    tempf       845070000
+1778    tempf       845080000
+1779    tempf       845090000
+1780    tempf       845100000
+1781    tempf       845110000
+1782    tempf       845120000
+1783    tempf       845130000
+1784    tempf       845140000
+1785    tempf       845150000
+1786    tempf       845160000
+1787    tempf       845170000
+1788    tempf       845180000
+1789    tempf       845190000
+1790    tempf       845200000
+1791    tempf       845210000
+1792    tempf       845220000
+1793    tempf       845230000
+1794    tempf       845240000
+1795    tempf       845250000
+1796    tempf       845260000
+1797    tempf       845270000
+1798    tempf       845280000
+1799    tempf       845290000
+1800    tempf       845300000
+1801    tempf       845310000
+1802    tempf       845320000
+1803    tempf       845330000
+1804    tempf       845340000
+1805    tempf       845350000
+**********************************************************************
+* 1811~1845,1851~1863
+* SG#1 water temperature distribution,overheater#1 water temperature distribution
+1811    tempf       903010000
+1812    tempf       903020000
+1813    tempf       903030000
+1814    tempf       903040000
+1815    tempf       903050000
+1816    tempf       903060000
+1817    tempf       903070000
+1818    tempf       903080000
+1819    tempf       903090000
+1820    tempf       903100000
+1821    tempf       903110000
+1822    tempf       903120000
+1823    tempf       903130000
+1824    tempf       903140000
+1825    tempf       903150000
+1826    tempf       903160000
+1827    tempf       903170000
+1828    tempf       903180000
+1829    tempf       903190000
+1830    tempf       903200000
+1831    tempf       903210000
+1832    tempf       903220000
+1833    tempf       903230000
+1834    tempf       903240000
+1835    tempf       903250000
+1836    tempf       903260000
+1837    tempf       903270000
+1838    tempf       903280000
+1839    tempf       903290000
+1840    tempf       903300000
+1841    tempf       903310000
+1842    tempf       903320000
+1843    tempf       903330000
+1844    tempf       903340000
+1845    tempf       903350000
+*                            
+1851    tempf       905010000
+1852    tempf       905020000
+1853    tempf       905030000
+1854    tempf       905040000
+1855    tempf       905050000
+1856    tempf       905060000
+1857    tempf       905070000
+1858    tempf       905080000
+1859    tempf       905090000
+1860    tempf       905100000
+1861    tempf       905110000
+1862    tempf       905120000
+1863    tempf       905130000
+* 1871~1905,1911~1923
+* SG#1 water pressure distribution,overheater#1 water pressure distribution
+1871    tempg       903010000
+1872    tempg       903020000
+1873    tempg       903030000
+1874    tempg       903040000
+1875    tempg       903050000
+1876    tempg       903060000
+1877    tempg       903070000
+1878    tempg       903080000
+1879    tempg       903090000
+1880    tempg       903100000
+1881    tempg       903110000
+1882    tempg       903120000
+1883    tempg       903130000
+1884    tempg       903140000
+1885    tempg       903150000
+1886    tempg       903160000
+1887    tempg       903170000
+1888    tempg       903180000
+1889    tempg       903190000
+1890    tempg       903200000
+1891    tempg       903210000
+1892    tempg       903220000
+1893    tempg       903230000
+1894    tempg       903240000
+1895    tempg       903250000
+1896    tempg       903260000
+1897    tempg       903270000
+1898    tempg       903280000
+1899    tempg       903290000
+1900    tempg       903300000
+1901    tempg       903310000
+1902    tempg       903320000
+1903    tempg       903330000
+1904    tempg       903340000
+1905    tempg       903350000
+*                                    
+1911    tempg       905010000
+1912    tempg       905020000
+1913    tempg       905030000
+1914    tempg       905040000
+1915    tempg       905050000
+1916    tempg       905060000
+1917    tempg       905070000
+1918    tempg       905080000
+1919    tempg       905090000
+1920    tempg       905100000
+1921    tempg       905110000
+1922    tempg       905120000
+1923    tempg       905130000
+* 1931~1965,1971~1983
+* SG#1 vapor fraction distribution,overheater#1 vapor fraction distribution
+1931    voidg       903010000
+1932    voidg       903020000
+1933    voidg       903030000
+1934    voidg       903040000
+1935    voidg       903050000
+1936    voidg       903060000
+1937    voidg       903070000
+1938    voidg       903080000
+1939    voidg       903090000
+1940    voidg       903100000
+1941    voidg       903110000
+1942    voidg       903120000
+1943    voidg       903130000
+1944    voidg       903140000
+1945    voidg       903150000
+1946    voidg       903160000
+1947    voidg       903170000
+1948    voidg       903180000
+1949    voidg       903190000
+1950    voidg       903200000
+1951    voidg       903210000
+1952    voidg       903220000
+1953    voidg       903230000
+1954    voidg       903240000
+1955    voidg       903250000
+1956    voidg       903260000
+1957    voidg       903270000
+1958    voidg       903280000
+1959    voidg       903290000
+1960    voidg       903300000
+1961    voidg       903310000
+1962    voidg       903320000
+1963    voidg       903330000
+1964    voidg       903340000
+1965    voidg       903350000
+*                                    
+1971    voidg       905010000
+1972    voidg       905020000
+1973    voidg       905030000
+1974    voidg       905040000
+1975    voidg       905050000
+1976    voidg       905060000
+1977    voidg       905070000
+1978    voidg       905080000
+1979    voidg       905090000
+1980    voidg       905100000
+1981    voidg       905110000
+1982    voidg       905120000
+1983    voidg       905130000
+
+
+
 
 
 .end
