@@ -9,11 +9,11 @@ import numpy as np
 import pandas as pd
 
 
-def stripf_preprocess(filename):
+def stripf_preprocess(filename=r'..\model\stripf'):
     '''
     Reform stripf file. Remove linefeeds for a data row. 
     '''
-    filepath = Path(filename)
+    filepath = Path(os.path.abspath(filename))
     if not filepath.exists():
         raise Exception("{0} doesn't exist".format(filepath))
     with open(filename, 'r') as f:
@@ -43,10 +43,11 @@ def stripf_preprocess(filename):
     return savepath
 
 
-def read_processed(filename):
+def read_processed(filename=r'..\model\stripf_tr.txt'):
     """
     From processed stripf file (by stripf_preprocess()) import data into pandas.Dataframe object.
     """
+    filename = Path(os.path.abspath(filename))
     if not Path(filename).exists():
         raise Exception("{0} doesn't exist".format(Path(filename)))
     strip_file = Path(filename).with_name('strip')
@@ -93,7 +94,6 @@ def read_stripf(filename=r'..\model\stripf'):
     From raw stripf file import data into pandas.Dataframe object.
     """
     filename = Path(os.path.abspath(filename))
-    tmp = stripf_preprocess(filename)
-    df = read_processed(tmp)
-    os.remove(tmp)
+    prf = stripf_preprocess(filename)
+    df = read_processed(prf)
     return df
