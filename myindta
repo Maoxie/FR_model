@@ -19,11 +19,14 @@
 0000123   905130000  235.2625   h2o  circ3l1      *
 0000124   925130000  235.2625   h2o  circ3l2      *
 *>> variable trips
-*>> var.code parameter relationship var.code parameter constatnt latch timeof
-402 time 0 ge null 0 0. l 0.
+*>> var.code parameter relationship var.code parameter constant latch timeof
+402 time 0 ge null 0 0. l 0.    *始终为true
+502 time 0 gt null 0 1.0e6 l    *pump 865/895 trip signal (false)
+611 -502 and -502 n 0.0         *pump velocity control
+
 *>> Time step control
 *>> endtime min.step max.step ctl.option minor.freq major.freq restart.freq
-0000201    1000.0 1.e-09 0.100  7 100 100 100
+0000201 1000.0 1.e-09 0.100  7 100 100 1000
 
 *$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -1755,32 +1758,22 @@
 *--------------------- 钠缓冲罐 --------------------------------
 8490000   bffctl    tmdpvol
 *       area len.  vol.   horz  vert   delz   rug   hyd   flag
-8490101 0.0  1.    1.e6   0.0   0.0    0.0    0.0   0.0   10
-8490200 3 * option
-*       time  press     temp
-8490201 0.0   7.00E+5   583.0
+8490101 1.65  0.5   0.0    0.0   90.0   0.5    0.0   0.0   10
+8490200 4 * option
+*       time  press     temp    static_quality
+8490201 0.0   7.00E+5   583.0   0.5
 
-
-***>> TODO: 填写时间相关接管的参数，以及控制变量信息
-**8500000   bffjun   tmdpjun
-**8500101   851010000 849000000 0.0       
-***>> ctl.word  trip.num
-**8500200   1         0                   
-***>> time    mflowr.l    mflowr.g    0.0
-**8500201   0.0       69.58    0.0      0.0
-**8500202   2.0       69.58    0.0      0.0
-**8500203   15000.0   69.58    0.0      0.0
 
 8500000   bffjun    sngljun
 8500101 851010000 849000000 0.00 0.0 0.0 01000 
 8500201 0 0.0 0.0 0.0  
 
 
-*>> 钠缓冲罐上腔(1.0m)
+*>> 钠缓冲罐上腔(0.12m)
 8510000   bffup     pipe
 8510001   2
 8510101   1.65      2  * flow area
-8510301   0.5       2  * length                 
+8510301   0.06      2  * length                 
 8510401   0.0       2  * volume of node 
 8510501   0.0       2  * horizontal angle
 8510601   90.0      2  * vertical angle
@@ -1878,21 +1871,28 @@
 *>> Pump Outlet (Discharge) Junction Initial Conditions
 8650202 1   0.0     0.0     0.0
 *>> Pump Index and Option
+*>>                       n.trip
 8650301 -2  -1  -3  -1  0   0   0   *build-in data for Westinghouse pump
 *>> Pump Description
 *>>     v       i.ratio flow    head    torque      inertia     density
-8650302 103.67  0.0     0.135   35.0    2500.00     4500.0      0.0
+8650302 103.67  0.0     0.1583  35.0    2500.00     4500.0      0.0
 *>> motor_torq  τfr2    τfr0    τfr1    τfr3
 8650303 0.0     0.0     0.0     0.0     0.0
+***>> Pump Time-Dependent Rotational Velocity Control
+**8656100 0
+***>> Pump Time-Dependent Rotational Velocity Data
+***                 veloc.
+**8656101 0.0         0.0
+**8656102 10.00       103.67   
+**8656103 200.0       103.67   
+**8656104 2000.0      103.67   
 *>> Pump Time-Dependent Rotational Velocity Control
-8656100 0
-*>> Pump Relative Motor Torque Data
-*       veloc.  relative motor torque
+*>>   trip_num    ctrl_var 
+8656100 611     cntrlvar,865
+*>> Pump Time-Dependent Rotational Velocity Data
+*                 veloc.
 8656101 0.0         0.0
-8656102 10.00       103.67   
-8656103 200.0       103.67   
-8656104 2000.0      103.67   
-
+8656102 500.0       103.67
 
 *>> 从泵出口到IHX的管道（冷段）
 *>> 47.956m-1.37m= 16+30.586 = 0.8*20+(1.5293*20)
@@ -2304,32 +2304,22 @@
 *--------------------- 钠缓冲罐 --------------------------------
 8790000   bffctl    tmdpvol
 *       area len.  vol.   horz  vert   delz   rug   hyd   flag
-8790101 0.0  1.    1.e6   0.0   0.0    0.0    0.0   0.0   10
-8790200 3 * option
-*       time  press     temp
-8790201 0.0   7.00E+5   583.0
+8790101 1.65  0.5   0.0    0.0   90.0   0.5    0.0   0.0   10
+8790200 4 * option
+*       time  press     temp    static_quality
+8790201 0.0   7.00E+5   583.0   0.5
 
-
-***>> TODO: 填写时间相关接管的参数，以及控制变量信息
-**8500000   bffjun   tmdpjun
-**8500101   851010000 849000000 0.0
-***>> ctl.word  trip.num
-**8500200   1         0
-***>> time    mflowr.l    mflowr.g    0.0
-**8500201   0.0       69.58    0.0      0.0
-**8500202   2.0       69.58    0.0      0.0
-**8500203   15000.0   69.58    0.0      0.0
 
 8800000   bffjun    sngljun
 8800101 881010000 879000000 0.00 0.0 0.0 01000
 8800201 0 0.0 0.0 0.0
 
 
-*>> 钠缓冲罐上腔(1.0m)
+*>> 钠缓冲罐上腔(0.12m)
 8810000   bffup     pipe
 8810001   2
 8810101   1.65      2  * flow area
-8810301   0.5       2  * length
+8810301   0.06      2  * length
 8810401   0.0       2  * volume of node
 8810501   0.0       2  * horizontal angle
 8810601   90.0      2  * vertical angle
@@ -2427,21 +2417,27 @@
 *>> Pump Outlet (Discharge) Junction Initial Conditions
 8950202 1   0.0     0.0     0.0
 *>> Pump Index and Option
+*>>                       n.trip
 8950301 -2  -1  -3  -1  0   0   0   *build-in data for Westinghouse pump
 *>> Pump Description
 *>>     v       i.ratio flow    head    torque      inertia     density
-8950302 103.67  0.0     0.135   35.0    2500.00     4500.0      0.0
+8950302 103.67  0.0     0.1583  35.0    2500.00     4500.0      0.0
 *>> motor_torq  τfr2    τfr0    τfr1    τfr3
 8950303 0.0     0.0     0.0     0.0     0.0
+***>> Pump Time-Dependent Rotational Velocity Control
+**8956100 0
+***>> Pump Relative Motor Torque Data
+***                 veloc.
+**8956101 0.0         0.0
+**8956102 10.00       103.67
+**8956103 200.0       103.67
+**8956104 2000.0      103.67
 *>> Pump Time-Dependent Rotational Velocity Control
-8956100 0
-*>> Pump Relative Motor Torque Data
-*       veloc.  relative motor torque
+*>>   trip_num    ctrl_var 
+8956100 611     cntrlvar,895
+*                 veloc.
 8956101 0.0         0.0
-8956102 10.00       103.67
-8956103 200.0       103.67
-8956104 2000.0      103.67
-
+8956102 500.0       103.67
 
 *>> 从泵出口到IHX的管道（冷段）
 *>> 47.956m-1.37m= 16+30.586 = 0.8*20+(1.5293*20)
@@ -2611,8 +2607,6 @@
 
 *------------------------ steam generator #2 -------------------------
 
-*------------------------ steam generator #1 -------------------------
-
 *>> 给水
 9210000   fdwater    tmdpvol
 * area lung vol horz vert delz rug hyd flag
@@ -2767,7 +2761,7 @@
 12001601  200060000  10000  1  1  247.05  16    *右边界为200组件
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
-12001701  10082 0.0027163  0. 0.  01    *热源是控制变量82
+12001701  10082 0.0027163  0. 0.  01    *热源是控制变量082
 12001702  10082 0.0027163  0. 0.  02
 12001703  10082 0.0027163  0. 0.  03
 12001704  10082 0.0027163  0. 0.  04
@@ -2996,9 +2990,9 @@
 18431401  683.  6
 *>> Left Boundary Condition     * 管侧(905)
 *>>     left  inc  cnd.type  a.code  area/len/fac  num
-18431501  905130000 -10000  1  1  78.7      13    *长度: 239*0.3m(单管单控制体长度)
+18431501  905130000 -10000  1  1  101.7     13    *长度: 239*0.3m(单管单控制体长度)
 *>> Right Boundary Condition    * 壳侧(843)
-18431601  843010000  10000  1  1  78.7      13
+18431601  843010000  10000  1  1  101.7     13
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
 18431701 0 0. 0. 0. 13
@@ -3029,9 +3023,9 @@
 18451401  525.  6
 *>> Left Boundary Condition     * 管侧(903)
 *>>     left  inc  cnd.type  a.code  area/len/fac  num
-18451501  903350000 -10000  1  1  78.7      35    *长度: 239*0.3(单管单控制体长度)
+18451501  903350000 -10000  1  1  101.7     35    *长度: 239*0.3(单管单控制体长度)
 *>> Right Boundary Condition    * 壳侧(845)
-18451601  845010000  10000  1  1  78.7      35
+18451601  845010000  10000  1  1  101.7     35
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
 18451701 0 0. 0. 0. 35
@@ -3064,9 +3058,9 @@
 18731401  683.  6
 *>> Left Boundary Condition     * 管侧(905)
 *>>     left  inc  cnd.type  a.code  area/len/fac  num
-18731501  905130000 -10000  1  1  78.7      13    *长度: 239*0.3m(单管单控制体长度)
+18731501  925130000 -10000  1  1  101.7     13    *长度: 239*0.3m(单管单控制体长度)
 *>> Right Boundary Condition    * 壳侧(843)
-18731601  843010000  10000  1  1  78.7      13
+18731601  873010000  10000  1  1  101.7     13
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
 18731701 0 0. 0. 0. 13
@@ -3097,9 +3091,9 @@
 18751401  525.  6
 *>> Left Boundary Condition     * 管侧(903)
 *>>     left  inc  cnd.type  a.code  area/len/fac  num
-18751501  903350000 -10000  1  1  78.7      35    *长度: 239*0.3(单管单控制体长度)
+18751501  923350000 -10000  1  1  101.7     35    *长度: 239*0.3(单管单控制体长度)
 *>> Right Boundary Condition    * 壳侧(845)
-18751601  845010000  10000  1  1  78.7      35
+18751601  875010000  10000  1  1  101.7     35
 *>> Source Data
 *>> type in.mltip lf.mltp rt.mltp num
 18751701 0 0. 0. 0. 35
@@ -3416,8 +3410,9 @@
 20100552 5000. 5.40       
 
 
-20295000 power 402 1. 65.0e6
-20295001 -1.0 0.0           
+*>>     type    trip  
+20295000 power  402     1.      65.0e6
+20295001 -1.0 0.0           * trip为false时
 20295002 0.0 0.0
 20295003 10.0   1.0            
 20295004 100.0  1.0         
@@ -3439,7 +3434,8 @@
 30000001  gamma-ac  65.0e6      0.0     73100.      1.2     1.0
 *>>     fission product type
 30000002  ans79-1
-*30000011  111
+*>> Reactivity (or Scram) Curve or Control Variable Numbers
+*30000011  111      * 在再启动中添加
 *** Density Reactivity Table
 *>>     moderator_ρ   $
 30000501    823.72   -0.45582372
@@ -3454,13 +3450,13 @@
 30000605    880.7945       -1.37399328             * 908.7945   -1.37399328
 30000606    1680.7945      -6.86996640             *1708.7945   -6.86996640
 
-*20211100  reac-t 402
-*20211101  -1.00 0.00
-*20211102  0.00 0.00
-*20211103  12000.00 0.00
-*20211104  12001.00 0.00
-*20211105  20000.00 0.00
-*20211106  30000.00 0.00
+20211100  reac-t 402
+20211101  -1.00 0.00
+20211102  0.00 0.00
+20211103  12000.00 0.00
+20211104  12001.00 0.00
+20211105  20000.00 0.00
+20211106  30000.00 0.00
 
 *-------- Average channel power ---------------------------        
 * name  type(sum-diff)  scaling     init    flag 
@@ -3472,7 +3468,19 @@
 *20508300   hot-pow   sum    1.0   0.0   1
 *20508301   0.0   0.0220    rktpow    0
 
-
+*--------------------------------------------------------------------
+*>> 泵控制器
+20580000    pumpctl     constant    139.0   * 二回路流量定值137.0kg/s
+* pump 865
+*>>         name        type        G       init  flag lim  min   max
+20586500    pumpctl1    pumpctl     500.0   275.0   0   3   0.0   500.0
+*>>           setpoint        sensed            S       T2      T1
+20586501    cntrlvar,800    mflowj,843010000    500.0   7.0     7.0
+* pump 895
+*>>         name        type        G       init  flag lim  min   max
+20589500    pumpctl1    pumpctl     500.0   275.0   0   3   0.0   500.0
+*>>           setpoint        sensed            S       T2      T1
+20589501    cntrlvar,800    mflowj,873010000    500.0   7.0     7.0
 
 
 
