@@ -15,7 +15,7 @@
 
 *>>     code        param.
 1001    rktpow      0           *Total reactor power
-1021    tempf       260010000   *core outlet temperature
+1002    rkreac      0           *Reactivity (dollars)
 
 1020    tempf       180010000   *core inlet temperature
 1021    tempf       260010000   *core outlet temperature
@@ -24,22 +24,22 @@
 1031    tempf       312010000   *inner hot pool upper volume liquid temperature
 1032    tempf       312010000   *inner hot pool upper volume gas temperature
 
-1040    tempf       400010000   *IHX#1 primary inlet temperature
-1041    tempf       400180000   *IHX#1 primary outlet temperature
-1042    tempf       401010000   *IHX#2 primary inlet temperature
-1043    tempf       401180000   *IHX#2 primary outlet temperature
-1044    tempf       402010000   *IHX#3 primary inlet temperature
-1045    tempf       402180000   *IHX#3 primary outlet temperature
-1046    tempf       403010000   *IHX#4 primary inlet temperature
-1047    tempf       403180000   *IHX#4 primary outlet temperature
-1050    p           400010000   *IHX#1 primary inlet pressure
-1051    p           400180000   *IHX#1 primary outlet pressure
-1052    p           401010000   *IHX#2 primary inlet pressure
-1053    p           401180000   *IHX#2 primary outlet pressure
-1054    p           402010000   *IHX#3 primary inlet pressure
-1055    p           402180000   *IHX#3 primary outlet pressure
-1056    p           403010000   *IHX#4 primary inlet pressure
-1057    p           403180000   *IHX#4 primary outlet pressure
+1040    tempf       320040000   *IHX#1 primary inlet temperature
+1041    tempf       500080000   *IHX#1 primary outlet temperature
+1042    tempf       320040000   *IHX#2 primary inlet temperature
+1043    tempf       500080000   *IHX#2 primary outlet temperature
+1044    tempf       320040000   *IHX#3 primary inlet temperature
+1045    tempf       500080000   *IHX#3 primary outlet temperature
+1046    tempf       320040000   *IHX#4 primary inlet temperature
+1047    tempf       500080000   *IHX#4 primary outlet temperature
+1050    p           320040000   *IHX#1 primary inlet pressure
+1051    p           500080000   *IHX#1 primary outlet pressure
+1052    p           320040000   *IHX#2 primary inlet pressure
+1053    p           500080000   *IHX#2 primary outlet pressure
+1054    p           320040000   *IHX#3 primary inlet pressure
+1055    p           500080000   *IHX#3 primary outlet pressure
+1056    p           320040000   *IHX#4 primary inlet pressure
+1057    p           500080000   *IHX#4 primary outlet pressure
 1060    mflowfj     400010000   *IHX#1 primary mass flow rate
 1061    mflowfj     401010000   *IHX#2 primary mass flow rate
 1062    mflowfj     402010000   *IHX#3 primary mass flow rate
